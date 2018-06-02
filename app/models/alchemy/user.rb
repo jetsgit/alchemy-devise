@@ -21,8 +21,7 @@ module Alchemy
       :trackable,
       :validatable,
       :timeoutable,
-      :recoverable,
-      :registerable
+      :recoverable
     ]
     # If the app uses an old encryption it uses the devise-encryptable gem
     # therefore we have to load the devise module
