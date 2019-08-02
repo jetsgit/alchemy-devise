@@ -1,6 +1,7 @@
 require 'devise/orm/active_record'
 require 'acts-as-taggable-on'
 require 'userstamp'
+require 'invisible_captcha'
 
 module Alchemy
   class User < ActiveRecord::Base
@@ -14,7 +15,8 @@ module Alchemy
       :password,
       :password_confirmation,
       :send_credentials,
-      :tag_list
+      :tag_list,
+      :age
     ]
     DEVISE_MODULES = [
       :database_authenticatable,
@@ -34,11 +36,13 @@ module Alchemy
     acts_as_tagger
 
     attr_accessor :send_credentials
+    attr_accessor :age
 
     has_many :folded_pages
 
     validates_uniqueness_of :login
     validates_presence_of :alchemy_roles
+    validates :age, invisible_captcha: true
 
     # Unlock all locked pages before destroy.
     before_destroy :unlock_pages!
